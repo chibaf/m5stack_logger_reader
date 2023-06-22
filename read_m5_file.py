@@ -13,11 +13,13 @@ logger=m5logger()
 ser = serial.Serial(sys.argv[1],sys.argv[2])
 file1=open(sys.argv[3],"w")
 
-while True:
-  data=logger.read_logger(ser)
-  print("# "+str(data))
-  file1.write(record(data))
-  time.sleep(0.1)
-file1.close()
+try:
+  while True:
+    data=logger.read_logger(ser)
+    print(str(data))
+    file1.write(record(data))
+    time.sleep(0.1)
+except KeyboardInterrupt:
+  file1.close()
 
 exit()
